@@ -9,28 +9,39 @@ function getRandomHexColor() {
     .padStart(6, 0)}`;
 }
 
-function createBoxes() {
-  const amount = Number(controls.firstElementChild.value);
-  controls.firstElementChild.value = "";
+const { style } = boxes;
 
-  let elements = "";
-  for (let i = 0; i < amount; i += 1) {
-    const color = getRandomHexColor();
-    elements +=
-      "<div style='width: " +
-      (30 + i * 10) +
-      "px; height: " +
-      (30 + i * 10) +
-      "px; background-color: " +
-      color +
-      "'></div>";
+style.display = "flex";
+style.flexWrap = "wrap";
+style.columnGap = "5px";
+style.rowGap = "25px";
+style.marginTop = "20px";
+style.alignItems = "flex-end";
+
+function createBoxes() {
+  const amount = Number(controls.querySelector("input").value);
+  const max = Number(controls.querySelector("input").max);
+  const min = Number(controls.querySelector("input").min);
+
+  if (isNaN(amount) || amount < min || amount > max) {
+    alert(`Please enter a number between ${min} and ${max}`);
+    return;
   }
-  boxes.insertAdjacentHTML("beforeend", elements);
+  for (let i = 0; i < amount; i++) {
+    const color = getRandomHexColor();
+    const size = 30 + i * 10;
+    const boxElement = `<div style="width: ${size}px; height: ${size}px; background-color: ${color}"></div>`;
+
+    setTimeout(() => {
+      boxes.insertAdjacentHTML("beforeend", boxElement);
+    }, i * 100);
+  }
 }
 
 function destroyBoxes() {
   boxes.innerHTML = "";
-  controls.firstElementChild.value = "";
+  controls.querySelector("input").value = "";
 }
+
 create.addEventListener("click", createBoxes);
 destroy.addEventListener("click", destroyBoxes);

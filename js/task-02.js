@@ -7,30 +7,11 @@ const ingredients = [
   "Condiments",
 ];
 
-const potatoes = document.createElement("li");
-potatoes.textContent = `${ingredients[0]}`;
-potatoes.classList.add("item");
+ingredients.forEach((ingredient) => {
+  const element = document.createElement("li");
 
-const mushrooms = document.createElement("li");
-mushrooms.textContent = `${ingredients[1]}`;
-mushrooms.classList.add("item");
+  element.classList.add("item");
+  element.textContent = ingredient;
 
-const garlic = document.createElement("li");
-garlic.textContent = `${ingredients[2]}`;
-garlic.classList.add("item");
-
-const tomatos = document.createElement("li");
-tomatos.textContent = `${ingredients[3]}`;
-tomatos.classList.add("item");
-
-const herbs = document.createElement("li");
-herbs.textContent = `${ingredients[4]}`;
-herbs.classList.add("item");
-
-const condiments = document.createElement("li");
-condiments.textContent = `${ingredients[5]}`;
-condiments.classList.add("item");
-
-document
-  .getElementById("ingredients")
-  .append(potatoes, mushrooms, garlic, tomatos, herbs, condiments);
+  document.querySelector("#ingredients").append(element);
+});
